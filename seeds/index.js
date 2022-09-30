@@ -19,13 +19,18 @@ db.once("open", ()=>{
 
 const helpersSample = array => array[Math.floor(Math.random() * array.length)]; //creating an array function to call descriptors and places
 
+const price = Math.floor(Math.random()* 10000) + 1000;
+
 const seedDB = async()=> {
     await Campground.deleteMany({});
     for(let i =0; i<50; i++){
      const random1000 = Math.floor(Math.random()* 1000);
      const camp =  new Campground({
         location: `${cities[random1000].city}, ${cities[random1000].province}`,
-        title: `${helpersSample(descriptors)} ${helpersSample(places)}`
+        title: `${helpersSample(descriptors)} ${helpersSample(places)}`,
+        image: "https://source.unsplash.com/collection/483251",
+        description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus, quaerat voluptatibus. Earum repudiandae placeat eius modi quam impedit cum incidunt consequuntur aliquam veniam ipsa, corporis, odio, vitae sunt vel",
+        price
      }) 
      await camp.save();
     } 
