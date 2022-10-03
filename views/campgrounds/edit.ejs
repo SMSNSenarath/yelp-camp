@@ -3,7 +3,12 @@
 <div class="row">
   <h1 class="text-center">Edit Campground</h1>
   <div class="col-6 offset-3">
-    <form action="/campgrounds/<%= campground._id %>?_method=put" method="post">
+    <form
+      action="/campgrounds/<%= campground._id %>?_method=put"
+      method="post"
+      novalidate
+      class="validated-form"
+    >
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
         <input
@@ -13,8 +18,11 @@
           name="campground[title]"
           placeholder="Title"
           value="<%= campground.title %> "
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
+
       <div class="mb-3">
         <label for="location" class="form-label">Location</label>
         <input
@@ -24,7 +32,9 @@
           name="campground[location]"
           placeholder="Location"
           value="<%=campground.location %>"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label for="image" class="form-label">Image Url</label>
@@ -35,7 +45,9 @@
           name="campground[image]"
           placeholder="Image Url"
           value="<%=campground.image %>"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label for="price" class="form-label">Campground Price</label>
@@ -50,7 +62,9 @@
             aria-label="price"
             aria-describedby="price-label"
             value="<%= campground.price %>"
+            required
           />
+          <div class="valid-feedback">Looks good!</div>
         </div>
       </div>
       <div class="mb-3">
@@ -61,9 +75,11 @@
           id="description"
           name="campground[description]"
           placeholder="Description"
+          required
         >
         <%= campground.description %> </textarea
         >
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <button class="btn btn-info">Update Campground</button>
