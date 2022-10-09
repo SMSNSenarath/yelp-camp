@@ -5,6 +5,7 @@ const methodOverride = require("method-override")
 const mongoose = require("mongoose");
 const ejsMate =  require("ejs-mate");
 const ExpressError =  require("./utilities/ExpressError");
+const session =  require("express-session");
 // const Campground =  require("./models/campground");
 // const catchAsync =  require("./utilities/catchAsync");
 // const {campgroundSchema, reviewSchema} = require("./schemas.js");
@@ -20,6 +21,20 @@ app.set("view engine", "ejs");
 app.set(path.join(__dirname, "views"));
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname, "public"))); //static assets
+// app.use(express.static("public"));
+
+const sessionConfig = {
+    secret : "thisisthesecret",
+    resave : false,
+    saveUninitialized : true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+app.use(session(sessionConfig));
 
 mongoose.connect("mongodb+srv://yelpcamp:1234@cluster0.tsd1kcy.mongodb.net/?retryWrites=true&w=majority")
 
