@@ -6,10 +6,12 @@ const mongoose = require("mongoose");
 const ejsMate =  require("ejs-mate");
 const ExpressError =  require("./utilities/ExpressError");
 const session =  require("express-session");
+const flash = require("connect-flash");
 // const Campground =  require("./models/campground");
 // const catchAsync =  require("./utilities/catchAsync");
 // const {campgroundSchema, reviewSchema} = require("./schemas.js");
 // const Review = require("./models/review")
+
 
 //Importing Routes 
 const campgrounds = require("./routes/campgrounds");
@@ -35,6 +37,7 @@ const sessionConfig = {
     }
 }
 app.use(session(sessionConfig));
+app.use(flash());
 
 mongoose.connect("mongodb+srv://yelpcamp:1234@cluster0.tsd1kcy.mongodb.net/?retryWrites=true&w=majority")
 
@@ -44,9 +47,17 @@ db.once("open", ()=>{
     console.log("Database connected");
 });
 
+//Defining Middlewares
+app.use((req, res, next)=>{
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    next();
+})
+
 //Defining Routers
 app.use("/campgrounds", campgrounds);
 app.use("/campgrounds/:id/reviews", reviews);
+
 
 
 //Home Page
