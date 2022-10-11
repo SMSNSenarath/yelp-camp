@@ -7,11 +7,9 @@ const ejsMate =  require("ejs-mate");
 const ExpressError =  require("./utilities/ExpressError");
 const session =  require("express-session");
 const flash = require("connect-flash");
-// const Campground =  require("./models/campground");
-// const catchAsync =  require("./utilities/catchAsync");
-// const {campgroundSchema, reviewSchema} = require("./schemas.js");
-// const Review = require("./models/review")
-
+const passport = require("passport");
+const LocalStratergy = require("passport-local");
+const User = require("./models/user");
 
 //Importing Routes 
 const campgrounds = require("./routes/campgrounds");
@@ -25,6 +23,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public"))); //static assets
 // app.use(express.static("public"));
+
 
 const sessionConfig = {
     secret : "thisisthesecret",
@@ -47,6 +46,13 @@ db.once("open", ()=>{
     console.log("Database connected");
 });
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStratergy(User.authenticate())); //authenticate is a static function that added to the user model by passport
+
+passport.serializeUser(User.serializeUser());//How do you store a user in a session
+passport.deserializeUser(User.deserializeUser());
+
 //Defining Middlewares
 app.use((req, res, next)=>{
     res.locals.success = req.flash("success");
@@ -57,7 +63,6 @@ app.use((req, res, next)=>{
 //Defining Routers
 app.use("/campgrounds", campgrounds);
 app.use("/campgrounds/:id/reviews", reviews);
-
 
 
 //Home Page
