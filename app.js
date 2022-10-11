@@ -13,10 +13,17 @@ const User = require("./models/user");
 
 
 //Importing Routes 
+const userRoutes = require("./routes/users");
 const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
-const userRoutes = require("./routes/users");
 
+mongoose.connect("mongodb+srv://yelpcamp:1234@cluster0.tsd1kcy.mongodb.net/?retryWrites=true&w=majority")
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", ()=>{
+    console.log("Database connected");
+});
 
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
@@ -37,16 +44,10 @@ const sessionConfig = {
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
+
+
 app.use(session(sessionConfig));
 app.use(flash());
-
-mongoose.connect("mongodb+srv://yelpcamp:1234@cluster0.tsd1kcy.mongodb.net/?retryWrites=true&w=majority")
-
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", ()=>{
-    console.log("Database connected");
-});
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -57,16 +58,18 @@ passport.deserializeUser(User.deserializeUser());
 
 //Defining Middlewares
 app.use((req, res, next)=>{
+    // console.log(req.session);
+    res.locals.currentUser = req.user; 
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
-    res.locals.currentUser = req.user; 
     next();
 })
 
 //Defining Routers
+app.use("/", userRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/reviews", reviewRoutes);
-app.use("/", userRoutes);
+
 
 
 //Home Page
