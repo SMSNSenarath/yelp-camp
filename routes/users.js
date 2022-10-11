@@ -34,10 +34,9 @@ router.get("/login", (req, res)=>{
 
 
 //Login a User
-router.post("/login", passport.authenticate("local", {failureFlash: true, failureRedirect: "/login"}), (req, res)=>{ //flash a error message by failureFlash
+router.post("/login", passport.authenticate("local", {failureFlash: true, failureRedirect: "/login", keepSessionInfo: true}), (req, res)=>{ //flash a error message by failureFlash
     req.flash("success", "Welcome Back!"); 
     const redirectUrl = req.session.returnTo || "/campgrounds";
-    console.log(req.session);
     delete req.session.returnTo;   
     res.redirect(redirectUrl);
 })
