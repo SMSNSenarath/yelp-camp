@@ -11,6 +11,7 @@ const passport = require("passport");
 const LocalStratergy = require("passport-local");
 const User = require("./models/user");
 
+
 //Importing Routes 
 const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
@@ -58,6 +59,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next)=>{
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
+    res.locals.currentUser = req.user; 
     next();
 })
 
