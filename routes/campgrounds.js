@@ -23,7 +23,7 @@ router.get("/:id/edit", isLoggedIn, isAuthor, catchAsync(campgrounds.renderUpdat
 
 router.route("/:id")
     .get(catchAsync(campgrounds.showOneCampground)) //Show Individual Campground
-    .put(isLoggedIn, isAuthor, validateCampground, catchAsync(campgrounds.updateCampground)) //Update a Campground
+    .put(isLoggedIn, isAuthor, upload.array("image"), validateCampground, catchAsync(campgrounds.updateCampground)) //Update a Campground
     .delete(isLoggedIn, isAuthor, catchAsync(campgrounds.deleteCampground)) //Delete a Campground
 
 
