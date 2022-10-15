@@ -5,14 +5,18 @@ const catchAsync = require("../utilities/catchAsync");
 //Importing Middlewares
 const {isLoggedIn, isAuthor, validateCampground} = require("../middleware");
 const campgrounds = require("../controllers/campgrounds");
+const multer = require("multer"); //for parsing the files
+const {storage} = require("../cloudinary");
+const upload = multer({storage});
 
 
 //Loading Create Campground Form
 router.get("/new",isLoggedIn, campgrounds.renderNewForm );
 
 router.route("/")
-    .post(isLoggedIn, validateCampground, catchAsync(campgrounds.createCampground)) //Create a Campground
+    .post(isLoggedIn, upload.array("image"), validateCampground,  catchAsync(campgrounds.createCampground)) //Create a Campground
     .get(catchAsync(campgrounds.showAllCampgrounds)) //Show All Campgrounds
+
 
 //Loading Update a Campground Form
 router.get("/:id/edit", isLoggedIn, isAuthor, catchAsync(campgrounds.renderUpdateForm));
