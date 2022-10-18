@@ -2,13 +2,10 @@ module.exports.descriptors = [
     'Forest',
     'Ancient',
     'Petrified',
-    'Roaring',
     'Cascade',
     'Tumbling',
     'Silent',
-    'Redwood',
     'Bullfrog',
-    'Maple',
     'Misty',
     'Elk',
     'Grizzly',
@@ -16,7 +13,8 @@ module.exports.descriptors = [
     'Sea',
     'Sky',
     'Dusty',
-    'Diamond'
+    'Cozy',
+    'Chilly'
 ]
 
 module.exports.places = [
