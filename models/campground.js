@@ -11,6 +11,8 @@ imageSchema.virtual("thumbnail").get(function(){
     return this.url.replace("/upload", "/upload/w_200");
 })
 
+const opts = {toJSON: { virtuals: true}};
+
 const campgroundSchema =  new Schema({
     title : String,
     images : [imageSchema],
@@ -36,7 +38,15 @@ const campgroundSchema =  new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref : "Review"
     }]
-});
+}, opts);
+
+
+campgroundSchema.virtual("properties.popUpMarkup").get(function(){
+    return `<strong><a href="/campgrounds/${this._id}">${this.title}</a></strong>
+    <p>${this.description.substring(0, 25)}...</p>`
+})
+
+
 
 //Setting the middleware
 //First name is the middleware name and the delete middleware only triggers by findByIdAndDelete name
