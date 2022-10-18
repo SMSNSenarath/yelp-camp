@@ -33,6 +33,7 @@ module.exports.createUser = async (req, res)=>{ //because this takes time
 module.exports.loginUser = (req, res)=>{ //flash a error message by failureFlash
     req.flash("success", "Welcome Back!"); 
     const redirectUrl = req.session.returnTo || "/campgrounds";
+    console.log(redirectUrl);
     delete req.session.returnTo;   
     res.redirect(redirectUrl);
 }
