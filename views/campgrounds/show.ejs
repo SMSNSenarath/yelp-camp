@@ -172,7 +172,8 @@
 
 
 <script>
-  const mapToken = '<%-process.env.MAPBOX_TOKEN %>';
+  // Since the ejs cannot run a script file, but the browser needs the script file we are going to declare the token here and link the script file to this ejs file
+  const mapToken = '<%-process.env.MAPBOX_TOKEN %>'; 
   const campground = <%-JSON.stringify(campground)%>;
 </script>
 <script src="/javascripts/showPageMap.js"></script>
