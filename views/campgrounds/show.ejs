@@ -1,5 +1,6 @@
 <% layout("/layouts/boilerplate") %>
 <link rel="stylesheet" href="/stylesheets/stars.css" />
+<link rel="stylesheet" href="/stylesheets/showCamp.css">
 
 <div class="row">
   <div class="col-6">
@@ -145,7 +146,7 @@
         ></textarea>
         <div class="valid-feedback">Looks good!</div>
       </div>
-      <button class="btn btn-success">Submit</button>
+      <button class="btn" id="submit">Submit</button>
     </form>
     <% } %> <% for(let review of campground.reviews) {%>
     <div class="card mb-3">

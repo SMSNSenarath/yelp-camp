@@ -1,13 +1,17 @@
 <!-- Common Layout -->
 <% layout("/layouts/boilerplate") %>
+<link rel="stylesheet" href="/stylesheets/showPage.css" />
 <div id="cluster-map"></div>
-<h1>All Campgrounds</h1>
-<div>
-  <a href="/campgrounds/new">Add Campground</a>
+<div class="mb-3 mt-4">
+  <h1>All Campgrounds</h1>
 </div>
 
+<!-- <div>
+  <a href="/campgrounds/new">Add Campground</a>
+</div> -->
+
 <% for(let campground of campgrounds){ %>
-<div class="card mb-3">
+<div class="card mb-3" id="card">
   <div class="row">
     <div class="col-md-4">
       <% if(campground.images.length) { %>
@@ -27,7 +31,7 @@
         <p class="card-text">
           <small class="text-muted"><%= campground.location %></small>
         </p>
-        <a href="/campgrounds/<%= campground._id %> " class="btn btn-primary"
+        <a href="/campgrounds/<%= campground._id %> " class="btn"
           >View <%= campground.title %>
         </a>
       </div>

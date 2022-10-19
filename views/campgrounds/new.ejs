@@ -1,4 +1,5 @@
 <% layout("/layouts/boilerplate") %>
+<link rel="stylesheet" href="/stylesheets/new.css">
 <div class="row">
   <h1 class="text-center">New Campground</h1>
   <div class="col-md-6 offset-md-3">
@@ -74,9 +75,9 @@
         <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
-        <button class="btn btn-success">Add Campground</button>
+        <button class="btn" id="addCamp">Add Campground</button>
       </div>
-      <a href="/campgrounds">All Campgrounds</a>
+      <a href="/campgrounds" class="btn" id="backCamp">All Campgrounds</a>
     </form>
   </div>
 </div>

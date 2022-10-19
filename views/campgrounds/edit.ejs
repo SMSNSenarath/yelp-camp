@@ -1,5 +1,5 @@
 <% layout("/layouts/boilerplate") %>
-
+<link rel="stylesheet" href="/stylesheets/edit.css" />
 <div class="row">
   <h1 class="text-center">Edit Campground</h1>
   <div class="col-md-6 offset-md-3">
@@ -102,7 +102,9 @@
       <div class="mb-3">
         <button class="btn btn-info">Update Campground</button>
       </div>
-      <a href="/campgrounds/<%= campground._id %> ">Back to Campground</a>
+      <a href="/campgrounds/<%= campground._id %> " class="btn" id="backCamp"
+        >Back to Campground</a
+      >
     </form>
   </div>
 </div>

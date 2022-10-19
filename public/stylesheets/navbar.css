@@ -1,0 +1,13 @@
+.navbar{
+    background-color: rgba(17, 16, 16, 0.837);
+}
+
+.navbar-brand, .navbar-brand:hover{
+    color: #ff9914;
+    font-weight: 600;
+    font-size: x-large;
+}
+
+.nav-link, .nav-link:hover, .nav-link:focus{
+    color: rgb(255, 255, 255);
+}

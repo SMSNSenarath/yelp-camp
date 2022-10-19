@@ -21,7 +21,7 @@ body{
     border-bottom: 0.25rem solid transparent;
 }
 
-.nav-link:hover{
+.nav-link:hover, .nav-link:focus{
     color: rgba(255, 255, 255, 0.6);
     border-bottom-color: rgba(255, 255, 255, 0.6);
 }
@@ -31,15 +31,18 @@ body{
     border-bottom-color: white;
 }
 
-.btn-secondary, .btn-secondary:hover {
+/* .btn-secondary, .btn-secondary:hover {
     color: #333;
     text-shadow: none;
-}
+} */
 
-#viewBtn {
+#viewBtn, #viewBtn:hover, #viewBtn:focus{
+    text-shadow: none;
     color: black;
+    box-shadow: none;
     background-color: #ff9914;
     border: none;
+    outline-color: transparent;
     border-radius: 999px;
     font-weight: 500;
 }
