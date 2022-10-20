@@ -14,7 +14,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStratergy = require("passport-local");
 const User = require("./models/user");
-const mongoSanitize = require("./models/user");
+const mongoSanitize = require("express-mongo-sanitize");
 
 //Importing Routes 
 const userRoutes = require("./routes/users");
@@ -36,9 +36,10 @@ app.use(express.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public"))); //static assets
 // app.use(express.static("public"));
-app.use(mongoSanitize({ //replacing unnecessary characters with _ to protect queries
-    replaceWith:"_"
-}));
+//replacing unnecessary characters with _ to protect queries
+app.use(mongoSanitize({
+    replaceWith: '_'
+}))
 
 const sessionConfig = {
     secret : "thisisthesecret",
