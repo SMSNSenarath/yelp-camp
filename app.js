@@ -17,6 +17,7 @@ const User = require("./models/user");
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
 const dbUrl = process.env.DB_URL;
+const MongoDBStore = require('connect-mongo');
 
 //Importing Routes 
 const userRoutes = require("./routes/users");
@@ -43,6 +44,16 @@ app.use(mongoSanitize({
     replaceWith: '_'
 }))
 
+// const store = new MongoDBStore({
+//     url: dbUrl,
+//     secret: "thisisthesecret",
+//     touchAfter: 24 * 60 * 60 //This says to update the session data everyday, and not to update frequently
+// })
+
+// store.on("error", function (e){
+//     console.log("Session store error!", e)
+// })
+
 const sessionConfig = {
     name: "Camp",
     secret : "thisisthesecret",
@@ -53,7 +64,9 @@ const sessionConfig = {
         // secure: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
-    }
+    },
+    store: MongoDBStore.create({mongoUrl: dbUrl, touchAfter: 24 * 60 * 60})
+     //This says to update the session data everyday, and not to update frequently
 }
 
 
