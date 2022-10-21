@@ -54,6 +54,7 @@ app.use(mongoSanitize({
 //     console.log("Session store error!", e)
 // })
 
+
 const sessionConfig = {
     name: "Camp",
     secret : "thisisthesecret",
